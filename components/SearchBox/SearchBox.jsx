@@ -30,7 +30,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   input: {
-    flex: 1,
     height: 48,
     marginRight: 10,
     padding: 16,
