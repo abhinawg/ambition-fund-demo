@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Header from '../../components/Header/Header';
 import NavigationTabs from '../../components/NavigationTabs/NavigationTabs';
@@ -191,8 +191,89 @@ const HomeScreen = () => {
         >
           <Text style={styles.viewAllButtonText}>View All</Text>
         </TouchableOpacity>
-
       </View>
+
+      <View style={styles.infoSectionContainer}>
+        <Text style={styles.infoSectionHeader}>Need Help?</Text>
+        <View style={styles.messageContainer}>
+          <Text style={styles.messageText}>Message us now?</Text>
+          <MaterialCommunityIcons name="message-text" size={24} color="#0041B7" style={styles.messageIcon} />
+        </View>
+        <Text style={styles.subheader}>Learn to build <Text style={styles.subheaderHighlight}>Wealth</Text></Text>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.cardScrollContainer}>
+          <View style={styles.infoCard}>
+            {/* <Image source={require('./assets/profile.jpg')} style={styles.infoCardImage} /> */}
+            <View style={styles.infoCardContent}>
+              <Text style={styles.infoCardTitle}>How to save money in your 20's?</Text>
+              <TouchableOpacity style={styles.readMoreButton}>
+                <Text style={styles.readMoreButtonText}>Read More</Text>
+              </TouchableOpacity>
+              <Text style={styles.readTime}>2 min read</Text>
+            </View>
+          </View>
+          <View style={styles.infoCard}>
+            {/* <Image source={require('./assets/profile.jpg')} style={styles.infoCardImage} /> */}
+            <View style={styles.infoCardContent}>
+              <Text style={styles.infoCardTitle}>How to save money in your 20's?</Text>
+              <TouchableOpacity style={styles.readMoreButton}>
+                <Text style={styles.readMoreButtonText}>Read More</Text>
+              </TouchableOpacity>
+              <Text style={styles.readTime}>2 min read</Text>
+            </View>
+          </View>
+          <View style={styles.infoCard}>
+            {/* <Image source={require('./assets/profile.jpg')} style={styles.infoCardImage} /> */}
+            <View style={styles.infoCardContent}>
+              <Text style={styles.infoCardTitle}>How to save money in your 20's?</Text>
+              <TouchableOpacity style={styles.readMoreButton}>
+                <Text style={styles.readMoreButtonText}>Read More</Text>
+              </TouchableOpacity>
+              <Text style={styles.readTime}>2 min read</Text>
+            </View>
+          </View>
+        </ScrollView>
+        <View style={styles.perspectiveContainer}>
+          <Text style={styles.perspectiveHeader}>Read People's Prespective</Text>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.perspectiveScrollContainer}
+          >
+            <View style={styles.perspectiveCard}>
+              <View style={styles.perspectiveContent}>
+                <MaterialCommunityIcons name="account-circle" size={36} style={styles.perspectiveProfileImage} />
+                <Text style={styles.profileName}>Manoj Jain</Text>
+              </View>
+              <Text style={styles.perspectiveText}>
+                I always thought to plan my investments but always failed to do that due to not having knowledge around that
+              </Text>
+            </View>
+            <View style={styles.perspectiveCard}>
+              <View style={styles.perspectiveContent}>
+                <MaterialCommunityIcons name="account-circle" size={36} style={styles.perspectiveProfileImage} />
+                <Text style={styles.profileName}>Manoj Jain</Text>
+              </View>
+              <Text style={styles.perspectiveText}>
+                I always thought to plan my investments but always failed to do that due to not having knowledge around that
+              </Text>
+            </View>
+            <View style={styles.perspectiveCard}>
+              <View style={styles.perspectiveContent}>
+                <MaterialCommunityIcons name="account-circle" size={36} style={styles.perspectiveProfileImage} />
+                <Text style={styles.profileName}>Manoj Jain</Text>
+              </View>
+              <Text style={styles.perspectiveText}>
+                I always thought to plan my investments but always failed to do that due to not having knowledge around that
+              </Text>
+            </View>
+
+          </ScrollView>
+        </View>
+      </View>
+
     </View >
   );
 };
@@ -387,7 +468,7 @@ const styles = StyleSheet.create({
     paddingTop: 16,
     paddingHorizontal: 12,
     margin: 8,
-    width: 170,
+    width: 150,
   },
 
   goalIcon: {
@@ -453,5 +534,158 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#fff',
     fontSize: 12,
+  },
+
+  infoSectionContainer: {
+    flex: 1,
+    backgroundColor: '#fff',
+    padding: 16,
+  },
+
+  infoSectionHeader: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 16,
+  },
+
+  messageContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 16,
+    backgroundColor: '#EBF2FF',
+    borderRadius: 8,
+    paddingHorizontal: 6,
+    paddingVertical: 10,
+  },
+
+  messageText: {
+    fontSize: 16,
+    marginRight: 8,
+    padding: 4,
+    textAlign: 'center',
+  },
+
+  messageIcon: {
+    fontSize: 24,
+    opacity: 0.8,
+  },
+
+  subheader: {
+    fontSize: 18,
+    marginBottom: 16,
+    fontWeight: 'bold',
+  },
+
+  subheaderHighlight: {
+    fontWeight: 'bold',
+    color: '#05A8AA',
+    fontStyle: 'italic',
+  },
+
+  cardScrollContainer: {
+    paddingHorizontal: 8,
+  },
+
+  infoCardContainer: {
+    flexDirection: 'row',
+    // justifyContent: 'space-between',
+  },
+
+  infoCard: {
+    width: 280,
+    height: 176,
+    backgroundColor: '#00000040',
+    borderRadius: 8,
+    padding: 8,
+    marginHorizontal: 6,
+  },
+
+  infoCardImage: {
+    width: '100%',
+    height: 150,
+    borderRadius: 8,
+  },
+
+  infoCardContent: {
+    padding: 8,
+  },
+
+  infoCardTitle: {
+    color: '#fff',
+    fontSize: 18,
+    lineHeight: 24,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+
+  readMoreButton: {
+    backgroundColor: '#fff',
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 4,
+    alignSelf: 'flex-start',
+    marginTop: 36,
+  },
+
+  readMoreButtonText: {
+    color: '#000',
+    fontSize: 14,
+    lineHeight: 14,
+  },
+
+  readTime: {
+    fontSize: 12,
+    color: '#fff',
+    marginTop: 4,
+  },
+
+  perspectiveContainer: {
+    // marginTop: 16,
+  },
+
+  perspectiveHeader: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+
+  perspectiveScrollContainer: {
+    paddingHorizontal: 16,
+  },
+
+  perspectiveCard: {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    width: 300,
+    backgroundColor: '#EFECCA40',
+    borderRadius: 8,
+    padding: 8,
+    marginRight: 8,
+  },
+
+  perspectiveContent: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  perspectiveProfileImage: {
+    // width: 50,
+    // height: 50,
+    borderRadius: 25,
+  },
+
+  profileName: {
+    fontSize: 16,
+    marginLeft: 8,
+  },
+
+  perspectiveText: {
+    fontSize: 14,
+    lineHeight: 20,
+    color: '#000',
+    opacity: 0.7,
+    marginTop: 16,
   },
 });
