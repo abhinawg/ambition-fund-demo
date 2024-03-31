@@ -22,6 +22,7 @@ const SearchBox = ({ onFilterPress, onSettingsPress }) => {
 
 const styles = StyleSheet.create({
   container: {
+    width: '100%',
     flexDirection: 'row',
     paddingHorizontal: 10,
     paddingVertical: 5,

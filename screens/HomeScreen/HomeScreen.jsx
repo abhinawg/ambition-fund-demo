@@ -1,8 +1,11 @@
-import React from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, LayoutAnimation, Platform, UIManager, FlatList, ScrollView } from 'react-native'; import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import Header from '../../components/Header/Header';
+
 import NavigationTabs from '../../components/NavigationTabs/NavigationTabs';
+import AmbitionDetailsScreen from '../AmbitionDetailsScreen/AmbitionDetailsScreen';
+import FriendsDetailsScreen from '../FriendsDetailsScreen/FriendsDetailsScreen';
 
 const data = [
   { key: 'home', label: 'Home', iconName: 'home' },
@@ -26,11 +29,107 @@ const CarouselItem = ({ label, iconName, iconColor }) => (
   </TouchableOpacity>
 );
 
-const HomeScreen = () => {
+// Enabling LayoutAnimation on Android
+if (
+  Platform.OS === 'android' &&
+  UIManager.setLayoutAnimationEnabledExperimental
+) {
+  UIManager.setLayoutAnimationEnabledExperimental(true);
+}
+
+const faqs = [
+  {
+    question: 'What is Ambition Funds',
+    answer: 'Ambition Funds is a platform that helps you to...',
+  },
+  {
+    question: 'Why trust ambition funds',
+    answer: 'You can trust Ambition Funds because...',
+  },
+  {
+    question: 'Why Ambitions are important',
+    answer: 'Ambitions are important to plan financial freedom and less stress in future for money',
+  },
+];
+
+const FAQItem = ({ item, expanded, onPress }) => {
   return (
-    <View style={styles.homeContainer}>
+    <TouchableOpacity
+      style={styles.faqQuestionContainer}
+      onPress={onPress}
+      activeOpacity={0.8}
+    >
+      <View style={styles.questionHeader}>
+        <Text style={styles.faqQuestion}>{item.question}</Text>
+        <MaterialCommunityIcons
+          name={expanded ? 'minus' : 'plus'}
+          size={24}
+          color="#303030"
+        />
+      </View>
+      {expanded && <Text style={styles.faqAnswer}>{item.answer}</Text>}
+    </TouchableOpacity>
+  );
+};
+
+const HomeScreen = () => {
+  const [activeTab, setActiveTab] = useState('Ambition');
+  const [expandedIndex, setExpandedIndex] = useState(null);
+
+  const handlePress = (index) => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    setExpandedIndex(expandedIndex === index ? null : index);
+  };
+
+  return (
+    <ScrollView style={styles.homeContainer}>
       <Header />
-      <NavigationTabs />
+      {/* <NavigationTabs /> */}
+
+      {/* Ambitions and Friends Tab */}
+      <View style={styles.tabsNavContainer}>
+      <View style={styles.tabsContainer}>
+        {/* Ambition Tab */}
+        <TouchableOpacity
+          style={[
+            styles.tab,
+            activeTab === 'Ambition' && styles.activeTab,
+          ]}
+          onPress={() => setActiveTab('Ambition')}
+        >
+          <Text
+            style={[
+              styles.tabText,
+              activeTab === 'Ambition' && styles.activeTabText,
+            ]}
+          >
+            Ambition
+          </Text>
+        </TouchableOpacity>
+
+        {/* Friends Tab */}
+        <TouchableOpacity
+          style={[
+            styles.tab,
+            activeTab === 'Friends' && styles.activeTab,
+          ]}
+          onPress={() => setActiveTab('Friends')}
+        >
+          <Text
+            style={[
+              styles.tabText,
+              activeTab === 'Friends' && styles.activeTabText,
+            ]}
+          >
+            Friends
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Content based on active state */}
+      {activeTab === 'Ambition' && <AmbitionDetailsScreen />}
+      {activeTab === 'Friends' && <FriendsDetailsScreen />}
+    </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           onPress={() => alert('New Ambition')}
@@ -109,11 +208,11 @@ const HomeScreen = () => {
       <View style={styles.goalSectionContainer}>
         <Text style={styles.goalHeading}>Make your ambitions true</Text>
 
-        <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start' }}>
+        <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}>
           <MaterialCommunityIcons name="check-circle" size={24} color="#05A8AA" style={styles.icon} />
           <Text style={styles.subheading}>90% of the people just think on their goals/ambitions</Text>
         </View>
-        <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start' }}>
+        <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}>
           <MaterialCommunityIcons name="check-circle" size={24} color="#05A8AA" style={styles.icon} />
           <Text style={styles.subheading}>70% People Struggle With Finance Planning</Text>
         </View>
@@ -194,9 +293,9 @@ const HomeScreen = () => {
       </View>
 
       <View style={styles.infoSectionContainer}>
-        <Text style={styles.infoSectionHeader}>Need Help?</Text>
+        <Text style={styles.infoSectionHeader}>Need Help ?</Text>
         <View style={styles.messageContainer}>
-          <Text style={styles.messageText}>Message us now?</Text>
+          <Text style={styles.messageText}>Message us now ?</Text>
           <MaterialCommunityIcons name="message-text" size={24} color="#0041B7" style={styles.messageIcon} />
         </View>
         <Text style={styles.subheader}>Learn to build <Text style={styles.subheaderHighlight}>Wealth</Text></Text>
@@ -274,7 +373,19 @@ const HomeScreen = () => {
         </View>
       </View>
 
-    </View >
+      <View style={styles.faqContainer}>
+        <Text style={styles.faqTitle}>Frequently Asked Questions</Text>
+        {faqs.map((item, index) => (
+          <FAQItem
+            key={index}
+            item={item}
+            expanded={expandedIndex === index}
+            onPress={() => handlePress(index)}
+          />
+        ))}
+      </View>
+
+    </ScrollView >
   );
 };
 
@@ -286,10 +397,39 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
 
+  tabsNavContainer: {
+    flex: 1,
+  },
+
+  tabsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    backgroundColor: '#F0F0F0',
+    paddingVertical: 10,
+  },
+
+  tab: {
+    padding: 10,
+  },
+
+  activeTab: {
+    borderBottomWidth: 3,
+    borderBottomColor: 'blue', // Color for the active tab indicator
+  },
+
+  tabText: {
+    color: 'black',
+  },
+  
+  activeTabText: {
+    fontWeight: 'bold',
+  },
+
   buttonContainer: {
     width: '96%',
     paddingHorizontal: 10,
     marginVertical: 10,
+    alignSelf: 'center',
   },
 
   ambitionButton: {
@@ -310,6 +450,7 @@ const styles = StyleSheet.create({
   quoteContainer: {
     width: '100%',
     padding: 20,
+    marginTop: 14,
   },
 
   quoteText: {
@@ -318,8 +459,9 @@ const styles = StyleSheet.create({
     color: '#000',
     opacity: 0.4,
     marginBottom: 10,
-    textAlign: 'center',
-    fontWeight: 'bold',
+    textAlign: 'left',
+    fontWeight: '700',
+    lineHeight: 40,
   },
 
   authorText: {
@@ -472,7 +614,7 @@ const styles = StyleSheet.create({
   },
 
   goalIcon: {
-    fontSize: 24,
+    fontSize: 20,
     marginBottom: 8,
     padding: 4,
   },
@@ -481,7 +623,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 8,
-    marginLeft: 4,
+    marginLeft: 2,
   },
 
   goalPercentage: {
@@ -575,6 +717,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginBottom: 16,
     fontWeight: 'bold',
+    marginTop: 16,
   },
 
   subheaderHighlight: {
@@ -641,7 +784,7 @@ const styles = StyleSheet.create({
   },
 
   perspectiveContainer: {
-    // marginTop: 16,
+    marginTop: 32,
   },
 
   perspectiveHeader: {
@@ -652,6 +795,7 @@ const styles = StyleSheet.create({
 
   perspectiveScrollContainer: {
     paddingHorizontal: 16,
+    marginTop: 12,
   },
 
   perspectiveCard: {
@@ -687,5 +831,43 @@ const styles = StyleSheet.create({
     color: '#000',
     opacity: 0.7,
     marginTop: 16,
+  },
+
+  faqContainer: {
+    padding: 16,
+  },
+
+  faqTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 16,
+  },
+
+  faqQuestionContainer: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#00000010',
+    borderRadius: 8,
+    padding: 12,
+    borderRadius: 8,
+    marginBottom: 8,
+  },
+
+  questionHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+
+  faqQuestion: {
+    flexDirection: 'row',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  faqAnswer: {
+    marginTop: 10,
+    fontSize: 14,
+    color: '#303030',
   },
 });

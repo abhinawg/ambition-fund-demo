@@ -12,14 +12,8 @@ const FriendsScreen = () => <View />;
 
 const NavigationTabs = () => {
     return (
-        <>            
-            <Tab.Navigator
-                screenOptions={{
-                    tabBarIndicatorStyle: { backgroundColor: 'black' },
-                    tabBarActiveTintColor: 'black',
-                    tabBarLabelStyle: { fontSize: 16 },
-                }}
-            >
+        <>
+            <Tab.Navigator>
                 <Tab.Screen name="Ambition" component={AmbitionDetailsScreen} />
                 <Tab.Screen name="Friends" component={FriendsScreen} />
             </Tab.Navigator>

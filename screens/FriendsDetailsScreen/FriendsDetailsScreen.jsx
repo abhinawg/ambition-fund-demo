@@ -4,12 +4,12 @@ import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import SearchBox from '../../components/SearchBox/SearchBox.jsx';
 import AmbitionCard from '../../components/AmbitionCard/AmbitionCard.jsx';
 
-const AmbitionDetailsScreen = () => {
+const FriendsDetailsScreen = () => {
   return (
       <View style={styles.container}>
         <SearchBox />
         <View style={styles.categoryTitle}>
-          <Text style={styles.title}>Travel</Text>
+          <Text style={styles.title}>Travel with Friends</Text>
           <View style={styles.countContainer}>
             <Text style={styles.titleCount}>7</Text>
           </View>
@@ -33,7 +33,7 @@ const AmbitionDetailsScreen = () => {
         </View>
 
         <View style={styles.categoryTitle}>
-          <Text style={styles.title}>Travel</Text>
+          <Text style={styles.title}>Travel with friends</Text>
           <View style={styles.countContainer}>
             <Text style={styles.titleCount}>7</Text>
           </View>
@@ -61,9 +61,12 @@ const AmbitionDetailsScreen = () => {
 
 const styles = StyleSheet.create({
 
+  scrollView: {
+    // flex: 1,
+  },
+
   container: {
-    backgroundColor: '#fff',
-    width: '100%',
+    backgroundColor: '#fff'
   },
 
   categoryTitle: {
@@ -106,4 +109,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default AmbitionDetailsScreen;
+export default FriendsDetailsScreen;

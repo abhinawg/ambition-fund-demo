@@ -1,23 +1,19 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, Pressable } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Header = () => {
   return (
+
     <View style={styles.headerContainer}>
-      <Text style={styles.greetingText}>Hi, Manoj</Text>
+      <Text style={styles.greeting}>Hi, {userName="manoj"}</Text>
       <View style={styles.iconsContainer}>
-        <Pressable onPress={() => alert('Notifications')}>
-          {/* <Image
-            source={require('./path-to-notification-icon.png')} // replace with your local image path
-            style={styles.icon}
-          /> */}
-        </Pressable>
-        <Pressable>
-          <Image
-            source={require('../../assets/icons/user_thumb.svg')} // replace with your local image path
-            style={styles.icon}
-          />
-        </Pressable>
+        <TouchableOpacity>
+          <MaterialCommunityIcons name="bell-outline" size={24} />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <MaterialCommunityIcons name="account-outline" size={24} />
+        </TouchableOpacity>
       </View>
     </View>
   );
